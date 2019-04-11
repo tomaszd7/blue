@@ -19,6 +19,6 @@ class Url {
 	}
 
 	protected function validate() {
-
+	// todo add validator
 	}
 }

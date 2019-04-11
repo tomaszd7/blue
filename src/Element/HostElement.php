@@ -6,13 +6,6 @@ namespace Blue\Element;
 class HostElement extends AbstractElement {
 
 	/**
-	 * @return bool
-	 */
-	public function isSatisfiedBy() {
-		return true;
-	}
-
-	/**
 	 * @return string|array
 	 * @throws \Exception
 	 */

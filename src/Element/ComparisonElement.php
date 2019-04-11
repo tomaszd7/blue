@@ -7,13 +7,6 @@ use Blue\Model\Result;
 
 class ComparisonElement extends AbstractElement {
 
-	/**
-	 * @return bool
-	 */
-	public function isSatisfiedBy() {
-		return true;
-	}
-
 	public function execute() {
 		$this->responses[] = "*** Comparison ***";
 		foreach ($this->results->getCompetitorResults() as $competitorResult) {

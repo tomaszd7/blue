@@ -18,6 +18,14 @@ abstract class AbstractElement implements ElementInterface {
 	}
 
 	/**
+	 * @return bool
+	 * todo for future extensions
+	 */
+	public function isSatisfiedBy() {
+		return true;
+	}
+
+	/**
 	 * @param Results $results
 	 */
 	public function setResults(Results $results) {

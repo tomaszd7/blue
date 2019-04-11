@@ -8,13 +8,6 @@ use Blue\Model\Result;
 class CompetitorsElement extends AbstractElement {
 
 	/**
-	 * @return bool
-	 */
-	public function isSatisfiedBy() {
-		return true;
-	}
-
-	/**
 	 * @return string|array
 	 * @throws \Exception
 	 */

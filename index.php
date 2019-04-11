@@ -23,3 +23,5 @@ $app = AppFactory::create();
 $app->setProvider($provider);
 
 $app->run();
+
+dump($app->getReport());

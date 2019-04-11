@@ -23,6 +23,8 @@ class App {
 
 	/** @var Results */
 	protected $results;
+	/** @var string */
+	protected $report;
 
 	/**
 	 * App constructor.
@@ -40,13 +42,15 @@ class App {
 
 
 	public function run() {
-		dump('in run');
-		Assert::notNull($this->provider, "Set provider first before running app");
-		$this->runHost();
-		$this->runCompetitors();
-		dump($this->results);
-		$report = $this->makeReport();
-		dump($report);
+		try {
+			Assert::notNull($this->provider, "Set provider first before running app");
+			$this->runHost();
+			$this->runCompetitors();
+			$this->report = $this->makeReport();
+		} catch (\Exception $e) {
+			// log error
+			dump($e->getMessage());
+		}
 	}
 
 	protected function runHost() {
@@ -81,6 +85,13 @@ class App {
 	 */
 	public function setProvider(ProviderInterface $provider) {
 		$this->provider = $provider;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getReport() {
+		return $this->report;
 	}
 
 
