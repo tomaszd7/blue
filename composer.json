@@ -1,0 +1,23 @@
+{
+    "name": "blue/blue",
+    "description": "Very blue",
+    "type": "project",
+    "require": {
+        "myclabs/php-enum": "^1.6",
+        "webmozart/assert": "^1.4",
+        "guzzlehttp/guzzle": "^6.3",
+        "monolog/monolog": "^1.24"
+    },
+    "authors": [
+        {
+            "name": "Tomasz Dabrowski",
+            "email": "tda@moleo.pl"
+        }
+    ],
+    "autoload": {
+        "psr-4": {"Blue\\": "src/"}
+    },
+    "require-dev": {
+        "symfony/var-dumper": "^4.2"
+    }
+}
