@@ -25,7 +25,8 @@ class AppFactory {
 
 		return new App(
 			$caller,
-			$reporter
+			$reporter,
+			LoggerFactory::createAppLogger()
 		);
 
 	}

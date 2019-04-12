@@ -7,6 +7,7 @@ namespace Blue\Service;
 use Blue\Element\AbstractElement;
 use Blue\Element\ElementInterface;
 use Blue\Model\Results;
+use Psr\Log\LoggerInterface;
 
 class Reporter implements ReporterInterface {
 
@@ -15,6 +16,9 @@ class Reporter implements ReporterInterface {
 
 	/** @var array */
 	protected $reportRows;
+
+	/** @var LoggerInterface */
+	protected $logger;
 
 	/**
 	 * Reporter constructor.
@@ -37,11 +41,22 @@ class Reporter implements ReporterInterface {
 			$element->setResults($results);
 			$element->execute();
 			$this->reportRows = array_merge($this->reportRows, $element->getResponse());
+			// add logging
+			array_map(function ($responseRow) {
+				$this->logger->info($responseRow);
+			}, $element->getResponse());
 		}
 	}
 
 	public function getReport() {
 		return implode("\n", $this->reportRows);
+	}
+
+	/**
+	 * @param LoggerInterface $logger
+	 */
+	public function setLogger($logger) {
+		$this->logger = $logger;
 	}
 
 }

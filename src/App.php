@@ -8,6 +8,7 @@ use Blue\Model\Url;
 use Blue\Service\CallerInterface;
 use Blue\Service\ProviderInterface;
 use Blue\Service\ReporterInterface;
+use Psr\Log\LoggerInterface;
 use Webmozart\Assert\Assert;
 
 class App {
@@ -16,10 +17,11 @@ class App {
 	protected $provider;
 	/** @var CallerInterface */
 	protected $caller;
+	/** @var ReporterInterface */
 	protected $reporter;
 	protected $config;
+	/** @var LoggerInterface */
 	protected $logger;
-
 
 	/** @var Results */
 	protected $results;
@@ -30,27 +32,31 @@ class App {
 	 * App constructor.
 	 * @param CallerInterface   $caller
 	 * @param ReporterInterface $reporter
+	 * @param LoggerInterface   $logger
 	 */
-	public function __construct(CallerInterface $caller, ReporterInterface $reporter) {
+	public function __construct(CallerInterface $caller, ReporterInterface $reporter, LoggerInterface $logger) {
 		$this->caller   = $caller;
 		$this->reporter = $reporter;
 //		$this->config   = $config;
-//		$this->logger   = $logger;
+		$this->logger = $logger;
 
+		$this->reporter->setLogger($this->logger);
 		$this->results = new Results();
 	}
 
 
 	public function run() {
+		$this->logger->info('*** APP START ***');
 		try {
 			Assert::notNull($this->provider, "Set provider first before running app");
 			$this->runHost();
 			$this->runCompetitors();
 			$this->report = $this->makeReport();
 		} catch (\Exception $e) {
-			// log error
-			dump($e->getMessage());
+			$this->logger->critical($e->getMessage());
+			$this->report .= "\n" . $e->getMessage();
 		}
+		$this->logger->info('*** APP END ***');
 	}
 
 	protected function runHost() {
@@ -63,12 +69,16 @@ class App {
 
 	protected function runCompetitors() {
 		foreach ($this->provider->getCompetitorUrls() as $competitorUrl) {
-			/** @var Url $competitorUrl */
-			$this->caller->call($competitorUrl);
-			$result = new Result();
-			$result->setUrl($competitorUrl);
-			$result->setTime($this->caller->getTime());
-			$this->results->addCompetitorResult($result);
+			try {
+				/** @var Url $competitorUrl */
+				$this->caller->call($competitorUrl);
+				$result = new Result();
+				$result->setUrl($competitorUrl);
+				$result->setTime($this->caller->getTime());
+				$this->results->addCompetitorResult($result);
+			} catch (\Exception $e) {
+				$this->logger->error("Error calling for competitor: " . $competitorUrl->getUrl() . ". " . $e->getMessage());
+			}
 		}
 	}
 
