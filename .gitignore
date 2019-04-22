@@ -1,3 +1,4 @@
-vendor/*
-!Vendor/
-.idea/
+.git/
+nbproject/private/
+nbproject/
+logs/

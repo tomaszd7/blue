@@ -8,7 +8,7 @@ use Monolog\Logger;
 
 class LoggerFactory {
 
-	protected static $logPath = __DIR__ . "/../logs/";
+	protected static $logPath = __DIR__ . "/../../logs/";
 
 	public static function createAppLogger() {
 		$logger = new Logger('app');
