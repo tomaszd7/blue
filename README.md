@@ -1,7 +1,8 @@
-# Docker WITH
+# Docker
 
-php 7.1
-ngnix webserver
+## Environment
+    php 7.1
+    ngnix webserver
 
 ## Installation
 
