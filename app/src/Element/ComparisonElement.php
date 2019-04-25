@@ -4,6 +4,7 @@ namespace Blue\Element;
 
 
 use Blue\Model\Result;
+use Blue\Config;
 
 class ComparisonElement extends AbstractElement {
 
@@ -14,7 +15,7 @@ class ComparisonElement extends AbstractElement {
 			$this->responses[] = sprintf(
 				"Host compared to %s has difference: %f",
 				$competitorResult->getUrl()->getUrl(),
-				$this->results->getHostResult()->getTime() - $competitorResult->getTime());
+                                Config::formatTime($this->results->getHostResult()->getTime() - $competitorResult->getTime())                                );
 		}
 	}
 

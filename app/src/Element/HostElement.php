@@ -2,6 +2,7 @@
 
 namespace Blue\Element;
 
+use Blue\Config;
 
 class HostElement extends AbstractElement {
 
@@ -14,7 +15,7 @@ class HostElement extends AbstractElement {
 		$this->responses[] = sprintf(
 			"Host url %s time: %s",
 			$this->results->getHostResult()->getUrl()->getUrl(),
-			$this->results->getHostResult()->getTime());
+                        Config::formatTime($this->results->getHostResult()->getTime()));
 	}
 
 }

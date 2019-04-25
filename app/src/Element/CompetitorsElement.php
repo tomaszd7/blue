@@ -4,6 +4,7 @@ namespace Blue\Element;
 
 
 use Blue\Model\Result;
+use Blue\Config;
 
 class CompetitorsElement extends AbstractElement {
 
@@ -17,7 +18,7 @@ class CompetitorsElement extends AbstractElement {
 			$this->responses[] = sprintf(
 				"Competitor url %s time: %s",
 				$competitorResult->getUrl()->getUrl(),
-				$competitorResult->getTime());
+                                Config::formatTime($competitorResult->getTime()));
 		}
 	}
 
