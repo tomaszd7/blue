@@ -19,6 +19,8 @@ class Url {
 	}
 
 	protected function validate() {
-	// todo add validator
+            if (!filter_var($this->url, FILTER_VALIDATE_URL)) {
+                throw new \Exception("Invalid url for value {$this->url}. Enter full url with protocol.");
+            }
 	}
 }
